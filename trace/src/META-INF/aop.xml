@@ -1,0 +1,4 @@
+<aspectj>
+<aspects>
+<aspect name="jxsource.util.aspectj.TraceMethod"/>
+</aspects></aspectj>

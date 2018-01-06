@@ -1,0 +1,1 @@
+mvn help:active-profiles -Denv=test test-compile
