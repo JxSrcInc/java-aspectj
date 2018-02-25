@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>jxsource.aspectj</groupId>
+	<groupId>jxsource.aspectj.test</groupId>
 	<artifactId>spring-boot</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
@@ -21,7 +21,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.7</java.version>
 	</properties>
 
 	<dependencies>
@@ -59,8 +59,11 @@
 			<version>1.8.9</version>
 		</dependency>
 		<!-- app dependency -->
-		<!-- <dependency> <groupId>jxsource.sample.aspectj</groupId> <artifactId>java-input-src</artifactId> 
-			<version>0.0.1</version> </dependency> -->
+		<dependency>
+			<groupId>jxsource.aspectj.test</groupId>
+			<artifactId>test-code</artifactId>
+			<version>0.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -83,11 +86,11 @@
 				<configuration>
 
 					<mainClass>org.springframework.boot.loader.JarLauncher</mainClass>
-					<additionalClasspathElements>target/spring-boot-aspectj-0.0.1.jar</additionalClasspathElements>
+					<additionalClasspathElements>target/spring-boot-0.0.1.jar</additionalClasspathElements>
 					<executable>maven</executable>
 					<arguments>
 						<argument>-jar</argument>
-						<argument>/target/spring-boot-aspectj-0.0.1.jar</argument>
+						<argument>/target/spring-boot-0.0.1.jar</argument>
 					</arguments>
 					<!-- <additionalClasspathElements> <additionalClasspathElement>../java-input-src/java-input-src.jar</additionalClasspathElement> 
 						</additionalClasspathElements> -->
@@ -101,8 +104,8 @@
 				<version>1.10</version>
 				<configuration>
 					<complianceLevel>1.7</complianceLevel>
-					<!-- <weaveDependencies> <weaveDependency> <groupId>jxsource.sample.aspectj</groupId> 
-						<artifactId>java-input-src</artifactId> </weaveDependency> </weaveDependencies> -->
+					<weaveDependencies> <weaveDependency> <groupId>jxsource.aspectj.test</groupId> 
+						<artifactId>test-code</artifactId> </weaveDependency> </weaveDependencies>
 				</configuration>
 				<executions>
 					<execution>

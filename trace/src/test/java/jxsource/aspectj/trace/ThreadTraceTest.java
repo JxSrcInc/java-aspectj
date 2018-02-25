@@ -14,11 +14,11 @@ import org.aspectj.lang.Signature;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 public class ThreadTraceTest {
-	TestThreadTrace threadTrace;
+	ThreadTrace threadTrace;
 	Signature signature;
 	@Before
 	public void init() {
-		threadTrace = new TestThreadTrace();
+		threadTrace = new ThreadTrace();
 		signature = mock(Signature.class);
 	}
 	

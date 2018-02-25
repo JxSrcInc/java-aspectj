@@ -15,7 +15,7 @@ import org.aspectj.lang.reflect.CodeSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ThreadTrace {
+public class ThreadTrace { 
 
 	private static Logger logger = LoggerFactory.getLogger(ThreadTrace.class);
 	private AdapterDelegate adapterDelegate = new AdapterDelegate();
