@@ -1,28 +1,31 @@
 package jxsource.aspectj.trace;
 
-public class MultiThreadTest extends Thread
-{
-	private String str;
-	public MultiThreadTest(String str) {
-		this.str = str;
-	}
-	public void run() {
-		System.out.println("Hello: "+str);		
-	}
-	public static void main(String[] args)
-	{
-		Thread t1 = new MultiThreadTest("A");
-		t1.start();
-		Thread t2 = new MultiThreadTest("B");
-		t2.start();
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
+
+import org.junit.Test;
+
+public class MultiThreadTest {
+	@Test
+	public void test() {
 		try {
-			t1.join(1000);
-			t1.join(1000);
+			Thread t1 = new Thread(new TestRunnable("A"),"Thread-A");
+			t1.start();
+			t1.join();
+			Thread t2 = new Thread(new TestRunnable("B"),"Thread-B");
+			t2.start();
+			t2.join();
+			Map<String,String> results = ThreadManager.getInstance().getThreads();
+			for(Map.Entry<String,String> entry: results.entrySet()) {
+				String thread = entry.getKey();
+				int i = thread.indexOf('-');
+				assertEquals(thread.substring(i+1), entry.getValue());
+			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			assertTrue(false);
 		}
-		
+
 	}
 }
-

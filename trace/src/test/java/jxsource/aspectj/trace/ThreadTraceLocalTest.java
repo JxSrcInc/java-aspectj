@@ -34,5 +34,10 @@ public class ThreadTraceLocalTest {
 		ThreadTraceLocal.set(threadTrace);
 		assertEquals(ThreadTraceLocal.get(), threadTrace);
 	}
+	@Test
+	public void diffTest() {
+		ThreadTrace threadTrace = new ThreadTrace(); 
+		assertNotEquals(ThreadTraceLocal.get(), threadTrace);
+	}
 
 }

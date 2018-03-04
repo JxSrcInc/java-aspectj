@@ -32,6 +32,8 @@ public class ThreadTraceTest {
       when(signature.getDeclaringTypeName()).thenReturn("testClass");
       when(signature.getName()).thenReturn("testMethod");
 
-		threadTrace.traceMethodEntry(signature, false);
+      threadTrace.traceMethodEntry(signature, false);
+      assertEquals(signature.getName(), "testMethod");
+      assertEquals(signature.getDeclaringTypeName(), "testClass");
 	}
 }

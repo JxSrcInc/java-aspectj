@@ -1,6 +1,5 @@
 package jxsource.aspectj.trace.adapter;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -20,13 +19,12 @@ public class TypeAdapter implements Adapter{
 		try{
 			InputStream in = AdapterDelegate.class.getResourceAsStream("adapter.properties");
 			properties.load(in);
+		} catch(NullPointerException e) {
+			String msg = "No adapter.properties loaded.";
+			logger.warn(msg);				
 		} catch(Exception e) {
 			String msg = "No adapter.properties loaded.";
-			if(logger.isDebugEnabled()) {
-				logger.debug(msg, e);
-			} else {
-				logger.warn(msg);				
-			}
+			logger.error(msg, e);				
 		}
 	}
 
@@ -34,13 +32,13 @@ public class TypeAdapter implements Adapter{
 		Class<?> cl = obj.getClass();
 		String adapterClassName = properties.getProperty(cl.getName());
 		if(adapterClassName == null) {
-			for(Class declaredClass: cl.getDeclaredClasses()) {
+			for(Class<?> declaredClass: cl.getDeclaredClasses()) {
 				adapterClassName = properties.getProperty(declaredClass.getName());
 				if(adapterClassName != null) {
 					return adapterClassName;
 				}
 			}
-			for(Class implementedInterface: cl.getInterfaces()) {
+			for(Class<?> implementedInterface: cl.getInterfaces()) {
 				adapterClassName = properties.getProperty(implementedInterface.getName());
 				if(adapterClassName != null) {
 					return adapterClassName;
