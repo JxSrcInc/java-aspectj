@@ -13,7 +13,7 @@ import jxsource.aspectj.trace.ThreadTrace;
 import org.aspectj.lang.Signature;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-public class ThreadTraceTest {
+public class ThreadTraceMockTest {
 	ThreadTrace threadTrace;
 	Signature signature;
 	@Before

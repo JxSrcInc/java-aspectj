@@ -1,27 +1,32 @@
 package jxsource.aspectj.trace.aj;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
+import jxsource.aspectj.trace.ThreadManager;
+import jxsource.aspectj.trace.LocalThreadManager;
+
 @Aspect
 public class AnnotationAspect {
-//    @Around("execution(void jxsource.aspectj.trace.ThreadTrace.traceMethodEntry(Signature, boolean, String)) && args(number)")
-//    public Object intercept(final ProceedingJoinPoint thisJoinPoint, int number) throws Throwable {
-//        System.out.println(thisJoinPoint + " -> " + number);
-//        if (number < 0)
-//            return thisJoinPoint.proceed(new Object[] { -number });
-//        if (number > 99)
-//            throw new RuntimeException("oops");
-//        return thisJoinPoint.proceed();
-//    }
+    @AfterReturning(value = "execution(* jxsource.aspectj.trace.TestObject.*(..))", returning = "retVal")
+    public void info(JoinPoint jp, Object retVal) {
+    	LocalThreadManager.get().add(Thread.currentThread().getName()+"-after-"+jp.getSignature().toString(), retVal.toString());
+    }
     
-    @Before("execution(void jxsource.aspectj.trace.ThreadTrace.traceMethodEntry(Signature, boolean)) && "
-    		+ "args(signature, showStack)")
-    public void before(Signature signature, boolean showStack) {
-        System.out.println("###### "+signature.getDeclaringTypeName() + ", " + showStack);
+    @Before("execution(* jxsource.aspectj.trace.TestObject.*(..))")
+    public void before(JoinPoint jp) {
+    	LocalThreadManager.get().add(Thread.currentThread().getName()+"-before-"+jp.getSignature().toString(), jp.getSignature().toString());
+    }
+
+    @AfterThrowing(value = "execution(* jxsource.aspectj.trace.TestObject.*(..))", throwing = "e")
+    public void info(JoinPoint jp, Throwable e) {
+    	LocalThreadManager.get().add(Thread.currentThread().getName()+"-throwing-"+jp.getSignature().toString(), e.toString());
     }
 
 }
