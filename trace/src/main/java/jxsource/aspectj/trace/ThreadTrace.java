@@ -9,15 +9,15 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.reflect.CodeSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ThreadTrace { 
 
-	private static Logger logger = LoggerFactory.getLogger(ThreadTrace.class);
+	private static Logger logger = LogManager.getLogger(ThreadTrace.class);
 	private AdapterDelegate adapterDelegate = new AdapterDelegate();
 	private DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 	private File dir = new File(Constants.traceDir+"_"+

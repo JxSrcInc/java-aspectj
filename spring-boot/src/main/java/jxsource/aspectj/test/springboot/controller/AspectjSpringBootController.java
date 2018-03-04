@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import jxsource.aspectj.testcode.TestCode;
+import jxsource.aspectj.testcode.converter.Converter;
+import jxsource.aspectj.testcode.main.TestCode;
 
 @RestController
 public class AspectjSpringBootController {
@@ -17,7 +18,7 @@ public class AspectjSpringBootController {
 	}
 	@RequestMapping(value="/{value}", method=RequestMethod.GET)
 	public String integer(@PathVariable("value") int value) {
-		return TestCode.convert(value);
+		return Converter.convert(value);
 	}
 
 

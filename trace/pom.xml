@@ -7,8 +7,8 @@
 	<name>AOP Tracer</name>
 	<description>AOP Tracer</description>
 	<properties>
-		<slf4jVersion>1.7.25</slf4jVersion>
-		<junitVersion>4.12</junitVersion>
+		<log4j-version>2.10.0</log4j-version>
+		<junit.version>4.12</junit.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<mockito.version>2.0.2-beta</mockito.version>
 		<aspectj.maven.plugin.version>1.10</aspectj.maven.plugin.version>
@@ -23,18 +23,19 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junitVersion}</version>
+			<version>${junit.version}</version>
+			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4jVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>${slf4jVersion}</version>
-		</dependency>
+  <dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-api</artifactId>
+    <version>${log4j-version}</version>
+  </dependency>
+  <dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>${log4j-version}</version>
+  </dependency>
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
 		<dependency>
 			<groupId>org.mockito</groupId>

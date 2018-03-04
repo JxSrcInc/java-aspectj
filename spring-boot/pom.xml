@@ -63,6 +63,17 @@
 			<groupId>jxsource.aspectj.test</groupId>
 			<artifactId>test-code</artifactId>
 			<version>0.0.1</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>jxsource.aspectj</groupId>
+			<artifactId>trace</artifactId>
+			<version>1.0.0</version>
 		</dependency>
 	</dependencies>
 

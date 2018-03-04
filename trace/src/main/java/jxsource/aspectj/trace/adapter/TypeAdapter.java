@@ -5,15 +5,15 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import jxsource.aspectj.trace.Adapter;
 import jxsource.aspectj.trace.AdapterDelegate;
 import jxsource.aspectj.trace.ExceptionHandler;
 
 public class TypeAdapter implements Adapter{
-	private static Logger logger = LoggerFactory.getLogger(TypeAdapter.class);
+	private static Logger logger = LogManager.getLogger(TypeAdapter.class);
 	private static Properties properties;
 	static {
 		properties = new Properties();
