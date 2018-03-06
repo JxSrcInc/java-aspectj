@@ -5,8 +5,8 @@ import jxsource.aspectj.trace.adapter.*;
 public class AdapterDelegate implements Adapter{
 	private PrimeAdapter primeAdapter = new PrimeAdapter();
 	private TypeAdapter typeAdapter = new TypeAdapter();
-	public String[] toString(Object obj) {
-		String[] ret = primeAdapter.toString(obj);
+	public String toString(Object obj) {
+		String ret = primeAdapter.toString(obj);
 		if(ret != null) {
 			return ret;
 		} else {

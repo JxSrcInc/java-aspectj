@@ -62,15 +62,15 @@ public class ThreadTrace {
 	 * Convert Object to String array which will output in sequence to trace log
 	 * returned array contains at least on item 
 	 */
-	private String[] convert(Object obj) {
+	private String convert(Object obj) {
 		if(obj == null) {
-			return new String[] {"null"};
+			return "null";
 		}
-		String[] content = adapterDelegate.toString(obj);
+		String content = adapterDelegate.toString(obj);
 		if(content != null ) {
 			return content;
 		} else {
-			return new String[] {obj.toString()};
+			return obj.toString();
 		}
 	}
 	public void traceMethodEntry(Signature s, boolean showStack)
@@ -144,27 +144,39 @@ public class ThreadTrace {
 		info.decrease();
 		info.print("</method>");
 	}
+//	private void print(ThreadInfo info, String tag, Class type, Object obj ) {
+//		String[] values = convert(obj);
+//		if(values.length == 1) {
+//			if(outputWithoutIntent) {
+//				info.print("<"+tag+" name=\""+type.getName()+"\">"+values[0]+"</"+tag+">");
+//			} else {
+//				info.print("<"+tag+" name=\""+type.getName()+"\">");
+//				info.increase();
+//				info.print(values[0]);
+//				info.decrease();
+//				info.print("</"+tag+">");
+//			}
+//		} else {
+//			info.print("<"+tag+" name=\""+type.getName()+"\">");
+//			info.increase();
+//			for(String value: values) {
+//				info.print(value);
+//			}
+//			info.decrease();
+//			info.print("</"+tag+">");
+//		}
+//	}
 	private void print(ThreadInfo info, String tag, Class type, Object obj ) {
-		String[] values = convert(obj);
-		if(values.length == 1) {
+		String value = convert(obj);
 			if(outputWithoutIntent) {
-				info.print("<"+tag+" name=\""+type.getName()+"\">"+values[0]+"</"+tag+">");
+				info.print("<"+tag+" name=\""+type.getName()+"\">"+value+"</"+tag+">");
 			} else {
 				info.print("<"+tag+" name=\""+type.getName()+"\">");
 				info.increase();
-				info.print(values[0]);
+				info.print(value);
 				info.decrease();
 				info.print("</"+tag+">");
 			}
-		} else {
-			info.print("<"+tag+" name=\""+type.getName()+"\">");
-			info.increase();
-			for(String value: values) {
-				info.print(value);
-			}
-			info.decrease();
-			info.print("</"+tag+">");
-		}
 	}
 	
 }
