@@ -49,14 +49,23 @@ public class ThreadStack {
 		return s;
 	}
 	
+//	public String toXML()
+//	{
+//		String s = "";
+//		for(int i=currentIndex; i<Math.min(Constants.displayStackLength+currentIndex,elements.length); i++)
+//		{
+//			s += "<![CDATA["+elements[i].toString() + "]]>\n";
+//		}
+//		return s;
+//	}
 	public String toXML()
 	{
-		String s = "";
+		String s = "<![CDATA[\n";
 		for(int i=currentIndex; i<Math.min(Constants.displayStackLength+currentIndex,elements.length); i++)
 		{
-			s += "<![CDATA["+elements[i].toString() + "]]>\n";
+			s += elements[i].toString()+'\n';
 		}
-		return s;
+		return s + "]]>\n";
 	}
 
 	public StackTraceElement getCurrentElement()

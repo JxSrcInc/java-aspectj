@@ -105,7 +105,7 @@ public class ThreadTrace {
 			print(info, "arg", types[i], args[i]);
 		}
 	}
-	public void traceThrowable(JoinPoint jp)
+	public void traceThrowable(JoinPoint jp, Throwable e)
 	{
 		// add filter feature
 		if(reject(jp.getSignature())) return;
@@ -115,14 +115,14 @@ public class ThreadTrace {
 		info.print("<exception>");
 		info.increase();
 		info.print(jp.toString());			
-		info.print("<stack>");
-		info.print(stack);
-		info.print("</stack>");
+//		info.print("<stack>");
+//		info.print(stack);
+//		info.print("</stack>");
+		info.print(ExceptionHandler.toString(e));
 		info.decrease();
 		info.print("</exception>");
 		info.decrease();
 		info.print("</method>");
-//		cleanStack(jp);	
 	}
 	
 	@SuppressWarnings("rawtypes")

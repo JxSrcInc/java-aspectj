@@ -12,6 +12,7 @@
 			<outputDirectory>./</outputDirectory>
 			<includes>
 				<include>**/*.class</include>
+				<include>**/*.xml</include>
 			</includes>
 		</fileSet>
 	</fileSets>
@@ -22,6 +23,8 @@
            <useTransitiveFiltering>true</useTransitiveFiltering>                                                                            
      <scope>runtime</scope>
 			<includes>
+				<include>org.apache.logging.log4j:log4j-api</include>
+				<include>org.apache.logging.log4j:log4j-core</include>
 				<include>org.aspectj:aspectjrt</include>
 				<include>jxsource.aspectj:trace</include>
 			</includes>

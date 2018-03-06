@@ -57,7 +57,7 @@ public class TypeAdapter implements Adapter{
 				Adapter adapter = (Adapter)adapterClass.newInstance();
 				return adapter.toString(obj);
 			} catch(Exception e) {
-				List<String> error = ExceptionHandler.toString(e);
+				List<String> error = ExceptionHandler.toList(e);
 				error.add(0, "Cannot load adapter "+adapterClassName);
 				return error.toArray(new String[error.size()]);
 			}

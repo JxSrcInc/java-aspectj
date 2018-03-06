@@ -11,7 +11,7 @@ public class ThreadTraceAspectTest {
 	public void test() {
 		LocalThreadManager.get().reset();
 		new TestObject().get();
-		System.out.println(LocalThreadManager.get().getThreads());
+//		System.out.println(LocalThreadManager.get().getThreads());
 		Map<String, String> result = LocalThreadManager.get().getThreads();
 		assertEquals(2, result.size());
 		for (String key : result.keySet()) {
@@ -31,7 +31,7 @@ public class ThreadTraceAspectTest {
 		try {
 			new TestObject().error();
 		} catch (Exception e) {
-			System.out.println(LocalThreadManager.get().getThreads());
+//			System.out.println(LocalThreadManager.get().getThreads());
 			Map<String, String> result = LocalThreadManager.get().getThreads();
 			assertEquals(2, result.size());
 			for (String key : result.keySet()) {

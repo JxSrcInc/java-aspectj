@@ -15,9 +15,17 @@ public class TestCode {
 	public static void set(String s) {
 		log.debug("set(): "+s);
 	}
+	public static void error() {
+		throw new RuntimeException("TestObject Error");
+	}
 	public static void main(String...args) {
 		TestCode.get();
 		TestCode.set("ABC");
 		Converter.convert(2345);
+		try {
+			TestCode.error();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

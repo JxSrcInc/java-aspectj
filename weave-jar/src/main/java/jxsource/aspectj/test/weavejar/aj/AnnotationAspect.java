@@ -5,6 +5,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.AfterThrowing;
 
 import jxsource.aspectj.trace.ThreadTrace;
 
@@ -14,6 +15,12 @@ public class AnnotationAspect {
 //        private static final Logger logger = LogManager
 //                        .getLogger(AnnotationAspect.class);
         private ThreadTrace trace = new ThreadTrace();
+
+        @AfterThrowing(value = "execution(* jxsource.aspectj.testcode..*(..))", throwing = "e")
+        public void throwing(JoinPoint jp, Throwable e) {
+        	trace.traceThrowable(jp, e);
+        }
+
         @AfterReturning(value = "execution(* jxsource.aspectj.testcode..*(..))", returning = "retVal")
         public void info(JoinPoint jp, Object retVal) {
         	trace.traceMethodExit(jp, retVal);
@@ -35,10 +42,6 @@ public class AnnotationAspect {
         @Before(value = "execution(* jxsource.aspectj.testcode..*(..))")
         public void test(JoinPoint jp) {
         	trace.traceMethodEntry(jp.getSignature());
-//                String msg = "\n-> " + jp.getSignature().toString();
-//                msg += '\n';
-////              System.err.println(msg);
-//                logger.debug(msg);
         }
 }
  
