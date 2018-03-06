@@ -75,8 +75,6 @@ public class ThreadTrace {
 	}
 	public void traceMethodEntry(Signature s, boolean showStack)
 	{
-		// add filter feature
-		if(reject(s)) return;
 		String className = s.getDeclaringTypeName();
 		String methodName = s.getName();
 		ThreadInfo info = getThreadInfo(className+"."+methodName);
@@ -107,14 +105,12 @@ public class ThreadTrace {
 	}
 	public void traceThrowable(JoinPoint jp, Throwable e)
 	{
-		// add filter feature
-		if(reject(jp.getSignature())) return;
 		ThreadInfo info = AspectjThreadLocal.get();
 		printParam(jp);
 		ThreadStack stack = new ThreadStack();
 		info.print("<exception>");
 		info.increase();
-		info.print(jp.toString());			
+//		info.print(jp.toString());			
 //		info.print("<stack>");
 //		info.print(stack);
 //		info.print("</stack>");
@@ -128,8 +124,6 @@ public class ThreadTrace {
 	@SuppressWarnings("rawtypes")
 	public void traceMethodExit(JoinPoint jp, Object retVal)
 	{
-		// add filter feature
-		if(reject(jp.getSignature())) return;
 		ThreadInfo info = AspectjThreadLocal.get();//cleanStack(jp);
 		String sig = jp.getSignature().toString();
 		// get return type and default it to null
@@ -173,8 +167,4 @@ public class ThreadTrace {
 		}
 	}
 	
-	private boolean reject(Signature s) {
-		
-		return false;
-	}
 }
