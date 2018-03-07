@@ -17,19 +17,19 @@ import jxsource.aspectj.trace.LocalThreadManager;
 @Aspect
 public class AnnotationAspect {
 	ThreadTrace trace = ThreadTraceLocal.get();
-    @AfterReturning(value = "execution(* jxsource.aspectj.trace.TestObject.*(..))", returning = "retVal")
+    @AfterReturning(value = "execution(* jxsource.aspectj.trace.TestClass.*(..))", returning = "retVal")
     public void info(JoinPoint jp, Object retVal) {
     	trace.traceMethodExit(jp, retVal);
     	LocalThreadManager.get().add(Thread.currentThread().getName()+"-after-"+jp.getSignature().toString(), retVal.toString());
     }
     
-    @Before("execution(* jxsource.aspectj.trace.TestObject.*(..))")
+    @Before("execution(* jxsource.aspectj.trace.TestClass.*(..))")
     public void before(JoinPoint jp) {
     	trace.traceMethodEntry(jp.getSignature());
     	LocalThreadManager.get().add(Thread.currentThread().getName()+"-before-"+jp.getSignature().toString(), jp.getSignature().toString());
     }
 
-    @AfterThrowing(value = "execution(* jxsource.aspectj.trace.TestObject.*(..))", throwing = "e")
+    @AfterThrowing(value = "execution(* jxsource.aspectj.trace.TestClass.*(..))", throwing = "e")
     public void throwing(JoinPoint jp, Throwable e) {
     	trace.traceThrowable(jp, e);
     	LocalThreadManager.get().add(Thread.currentThread().getName()+"-throwing-"+jp.getSignature().toString(), e.toString());

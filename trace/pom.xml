@@ -11,6 +11,7 @@
 		<junit.version>4.12</junit.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<mockito.version>2.0.2-beta</mockito.version>
+		<jackson.version>2.9.3</jackson.version>
 		<aspectj.maven.plugin.version>1.10</aspectj.maven.plugin.version>
 	</properties>
 
@@ -43,7 +44,17 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+<dependency>
+   <groupId>com.fasterxml.jackson.dataformat</groupId>
+   <artifactId>jackson-dataformat-xml</artifactId>
+   <version>${jackson.version}</version>
+</dependency>	</dependencies>
 
 	<build>
 		<plugins>

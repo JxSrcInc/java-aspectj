@@ -27,13 +27,13 @@ public class ThreadTraceMockTest {
 		assertNotNull(threadTrace);
 	}
 	
-	@Test
-	public void traceMethodEntryTest() {
-      when(signature.getDeclaringTypeName()).thenReturn("testClass");
-      when(signature.getName()).thenReturn("testMethod");
-
-      threadTrace.traceMethodEntry(signature, false);
-      assertEquals(signature.getName(), "testMethod");
-      assertEquals(signature.getDeclaringTypeName(), "testClass");
-	}
+//	@Test
+//	public void traceMethodEntryTest() {
+//      when(signature.getDeclaringTypeName()).thenReturn("testClass");
+//      when(signature.getName()).thenReturn("testMethod");
+//
+//      threadTrace.traceMethodEntry(signature, false);
+//      assertEquals(signature.getName(), "testMethod");
+//      assertEquals(signature.getDeclaringTypeName(), "testClass");
+//	}
 }
