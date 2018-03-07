@@ -41,7 +41,7 @@ public class AnnotationAspect {
  
         @Before(value = "execution(* jxsource.aspectj.testcode..*(..))")
         public void test(JoinPoint jp) {
-        	trace.traceMethodEntry(jp.getSignature());
+        	trace.traceMethodEntry(jp);
         }
 }
  

@@ -6,6 +6,7 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -21,28 +22,16 @@ public class AnnotationAspect {
         @AfterReturning(value = "execution(* jxsource.aspectj.testcode..*(..))", returning = "retVal")
         public void info(JoinPoint jp, Object retVal) {
         	trace.traceMethodExit(jp, retVal);
-                Object[] args = jp.getArgs();
-                String msg = "\n-> " + jp.getSignature().toString();
-                for (Object arg : args) {
-                        msg += "\n\t Param: " + arg.getClass().getSimpleName() + " = "
-                                        + arg.toString();
-                }
-                if (retVal != null) {
-                        msg += "\n\t Return: " + retVal.getClass().getSimpleName() + " = "
-                                        + retVal.toString();
-                }
-                msg += '\n';
-              System.err.println(msg);
-//                logger.debug(msg);
         }
  
         @Before(value = "execution(* jxsource.aspectj.testcode..*(..))")
         public void test(JoinPoint jp) {
-        	trace.traceMethodEntry(jp.getSignature());
-//                String msg = "\n-> " + jp.getSignature().toString();
-//                msg += '\n';
-////              System.err.println(msg);
-//                logger.debug(msg);
+        	trace.traceMethodEntry(jp);
         }
+        @AfterThrowing(value = "execution(* jxsource.aspectj.testcode..*(..))", throwing = "e")
+        public void throwing(JoinPoint jp, Throwable e) {
+        	trace.traceThrowable(jp, e);
+        }
+
 }
  
