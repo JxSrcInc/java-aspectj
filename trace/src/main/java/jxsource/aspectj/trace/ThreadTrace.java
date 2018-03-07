@@ -4,11 +4,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
- 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -19,18 +15,44 @@ public class ThreadTrace {
  
         private static Logger logger = LogManager.getLogger(ThreadTrace.class);
         private AdapterDelegate adapterDelegate = new AdapterDelegate();
-        private DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        private File dir = new File(Constants.traceDir+"_"+
+        private static DateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        private static File dir = new File(Constants.traceDir+"_"+
                         timeFormat.format(new Date(System.currentTimeMillis())));
-        private Set<String> files = new HashSet<String>();
-        private Map<String, Adapter> adapters = new HashMap<String, Adapter>();
         private boolean outputWithoutIntent;
         private boolean showTime;
+        private boolean showParamWhenReturn;
         public ThreadTrace() {
                 outputWithoutIntent = System.getProperty("jxsource.aspectj.trace.without_intent") != null;
         }
         
-        private ThreadInfo getThreadInfo(String preFileName)
+        public boolean isOutputWithoutIntent() {
+			return outputWithoutIntent;
+		}
+
+		public ThreadTrace setOutputWithoutIntent(boolean outputWithoutIntent) {
+			this.outputWithoutIntent = outputWithoutIntent;
+			return this;
+		}
+
+		public boolean isShowTime() {
+			return showTime;
+		}
+
+		public ThreadTrace setShowTime(boolean showTime) {
+			this.showTime = showTime;
+			return this;
+		}
+
+		public boolean isShowParamWhenReturn() {
+			return showParamWhenReturn;
+		}
+
+		public ThreadTrace setShowParamWhenReturn(boolean showParamWhenReturn) {
+			this.showParamWhenReturn = showParamWhenReturn;
+			return this;
+		}
+
+		private ThreadInfo getThreadInfo(String preFileName)
         {
                 ThreadInfo info = AspectjThreadLocal.get(); 
                 if(info == null)
@@ -73,8 +95,9 @@ public class ThreadTrace {
                         return obj.toString();
                 }
         }
-        public void traceMethodEntry(Signature s, boolean showStack)
+        public void traceMethodEntry(JoinPoint jp, boolean showStack)
         {
+        	Signature s = jp.getSignature();
                 String className = s.getDeclaringTypeName();
                 String methodName = s.getName();
                 ThreadInfo info = getThreadInfo(className+"."+methodName);
@@ -86,6 +109,7 @@ public class ThreadTrace {
                         info.print("<method class=\""+className+"\" name=\""+methodName+"\">");                 
                 }
                 info.increase();
+                printParam(jp);
                 if(showStack)
                 {
                         info.print("<stack>");
@@ -94,9 +118,9 @@ public class ThreadTrace {
                 }
         }
         
-        public void traceMethodEntry(Signature s)
+        public void traceMethodEntry(JoinPoint jp)
         {
-                traceMethodEntry(s, false);
+                traceMethodEntry(jp, false);
         }
         
         private void printParam(JoinPoint jp) {
@@ -125,7 +149,6 @@ public class ThreadTrace {
                 info.print("</method>");
         }
         
-        @SuppressWarnings("rawtypes")
         public void traceMethodExit(JoinPoint jp, Object retVal)
         {
                 ThreadInfo info = AspectjThreadLocal.get();//cleanStack(jp);
@@ -133,7 +156,6 @@ public class ThreadTrace {
                 // get return type and default it to null
                 int pos = sig.indexOf(' ');
                 String retName = sig.substring(0, pos);
-                String retValue = "null";
                 
                 if(!retName.toLowerCase().equals("void"))
                 {       
@@ -144,7 +166,9 @@ public class ThreadTrace {
                                 info.print("<ret name=\"unknownClass\" value=\"null\"/>");
                         } 
                 }
-                printParam(jp);
+                if(showParamWhenReturn) {
+                	printParam(jp);
+                }
                 info.decrease();
                 info.print("</method>");
         }

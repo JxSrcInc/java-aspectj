@@ -8,5 +8,6 @@ public class TestRunnable implements Runnable {
 	}
     public void run() {
         ThreadManager.getInstance().add(Thread.currentThread().getName(), msg);
+        new TestClass().get();
     }
 }

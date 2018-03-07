@@ -14,6 +14,7 @@ public class MultiThreadTest {
 			Thread t1 = new Thread(new TestRunnable("A"),"Thread-A");
 			t1.start();
 			t1.join();
+			Thread.sleep(1000);
 			Thread t2 = new Thread(new TestRunnable("B"),"Thread-B");
 			t2.start();
 			t2.join();

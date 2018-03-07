@@ -16,7 +16,7 @@ import jxsource.aspectj.trace.LocalThreadManager;
 
 @Aspect
 public class AnnotationAspect {
-	ThreadTrace trace = ThreadTraceLocal.get();
+	ThreadTrace trace = ThreadTraceLocal.get().setShowTime(true);
     @AfterReturning(value = "execution(* jxsource.aspectj.trace.TestClass.*(..))", returning = "retVal")
     public void info(JoinPoint jp, Object retVal) {
     	trace.traceMethodExit(jp, retVal);
@@ -25,7 +25,7 @@ public class AnnotationAspect {
     
     @Before("execution(* jxsource.aspectj.trace.TestClass.*(..))")
     public void before(JoinPoint jp) {
-    	trace.traceMethodEntry(jp.getSignature());
+    	trace.traceMethodEntry(jp);
     	LocalThreadManager.get().add(Thread.currentThread().getName()+"-before-"+jp.getSignature().toString(), jp.getSignature().toString());
     }
 
