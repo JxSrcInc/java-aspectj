@@ -7,22 +7,22 @@ import java.util.Map;
 import org.junit.Test;
 
 public class ThreadTraceAspectTest {
+
 	@Test
-	public void test() {
+	public void testGet() {
 		LocalThreadManager.get().reset();
-		new TestClass().get();
-//		System.out.println(LocalThreadManager.get().getThreads());
+		Object retVal = new TestClass().get();
 		Map<String, String> result = LocalThreadManager.get().getThreads();
-		assertEquals(2, result.size());
-		for (String key : result.keySet()) {
-			if (key.contains("-before-")) {
-				assert (true);
-			} else if (key.contains("-after-")) {
-				assert (true);
-			} else {
-				assert (false);
-			}
-		}
+		assertEquals(1, result.size());
+		assertEquals("Hello",retVal.toString());
+	}
+
+	@Test
+	public void testSet() {
+		LocalThreadManager.get().reset();
+		new TestClass().set(101);
+		Map<String, String> result = LocalThreadManager.get().getThreads();
+		assertEquals(1, result.size());
 	}
 
 	@Test
@@ -31,18 +31,9 @@ public class ThreadTraceAspectTest {
 		try {
 			new TestClass().error();
 		} catch (Exception e) {
-//			System.out.println(LocalThreadManager.get().getThreads());
 			Map<String, String> result = LocalThreadManager.get().getThreads();
-			assertEquals(2, result.size());
-			for (String key : result.keySet()) {
-				if (key.contains("-before-")) {
-					assert (true);
-				} else if (key.contains("-throwing-")) {
-					assert (true);
-				} else {
-					assert (false);
-				}
-			}
+			assertEquals(1, result.size());
+			assertEquals("TestObject Error", e.getMessage());
 		}
 	}
 
@@ -50,18 +41,10 @@ public class ThreadTraceAspectTest {
 	public void testParam() {
 		LocalThreadManager.get().reset();
 		TestObject retObj = new TestClass().param(new TestObject(), true);
-//		System.out.println(LocalThreadManager.get().getThreads());
 		Map<String, String> result = LocalThreadManager.get().getThreads();
-		assertEquals(2, result.size());
-		for (String key : result.keySet()) {
-			if (key.contains("-before-")) {
-				assert (true);
-			} else if (key.contains("-after-")) {
-				assert (true);
-			} else {
-				assert (false);
-			}
-		}
+		assertEquals(1, result.size());
+		assertEquals(true, retObj instanceof TestObject);
+		assertEquals(100, ((TestObject)retObj).getId());
 	}
 
 }

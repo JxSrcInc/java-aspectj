@@ -11,6 +11,6 @@ public class TestClass {
 		obj.setId(100);
 		obj.getMap().put("string","String Message");
 		return obj;
-		
 	}
+	public void set(int i) {};
 }
