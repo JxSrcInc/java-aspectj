@@ -7,7 +7,7 @@
 	<name>AOP Tracer</name>
 	<description>AOP Tracer</description>
 	<properties>
-		<log4j-version>2.10.0</log4j-version>
+		<slf4j-version>1.7.25</slf4j-version>
 		<junit.version>4.12</junit.version>
 		<aspectj.version>1.8.9</aspectj.version>
 		<mockito.version>2.0.2-beta</mockito.version>
@@ -27,16 +27,16 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-  <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-api</artifactId>
-    <version>${log4j-version}</version>
-  </dependency>
-  <dependency>
-    <groupId>org.apache.logging.log4j</groupId>
-    <artifactId>log4j-core</artifactId>
-    <version>${log4j-version}</version>
-  </dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.10.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.mockito/mockito-all -->
 		<dependency>
 			<groupId>org.mockito</groupId>
@@ -50,20 +50,42 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-<dependency>
-   <groupId>com.fasterxml.jackson.dataformat</groupId>
-   <artifactId>jackson-dataformat-xml</artifactId>
-   <version>${jackson.version}</version>
-</dependency>	</dependencies>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.12.4</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
 				<version>${aspectj.maven.plugin.version}</version>
 				<configuration>
-					<complianceLevel>1.7</complianceLevel>
+					<complianceLevel>1.8</complianceLevel>
 				</configuration>
 				<executions>
 					<execution>
@@ -74,6 +96,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			 -->
 		</plugins>
 	</build>
 

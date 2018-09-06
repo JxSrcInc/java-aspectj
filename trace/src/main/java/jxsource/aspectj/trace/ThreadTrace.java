@@ -133,7 +133,6 @@ public class ThreadTrace {
 
 	}
 
-	@Deprecated
 	public void traceMethodEntry(JoinPoint jp, boolean showStack) {
 		Signature s = jp.getSignature();
 		String className = s.getDeclaringTypeName();
@@ -155,7 +154,6 @@ public class ThreadTrace {
 		}
 	}
 
-	@Deprecated
 	public void traceMethodEntry(JoinPoint jp) {
 		traceMethodEntry(jp, false);
 	}
@@ -169,7 +167,6 @@ public class ThreadTrace {
 		}
 	}
 
-	@Deprecated
 	public void traceThrowable(JoinPoint jp, Throwable e) {
 		ThreadInfo info = AspectjThreadLocal.get();
 		printParam(jp);
@@ -182,7 +179,6 @@ public class ThreadTrace {
 		info.print("</method>");
 	}
 
-	@Deprecated
 	public void traceMethodExit(JoinPoint jp, Object retVal) {
 		ThreadInfo info = AspectjThreadLocal.get();// cleanStack(jp);
 		String sig = jp.getSignature().toString();
