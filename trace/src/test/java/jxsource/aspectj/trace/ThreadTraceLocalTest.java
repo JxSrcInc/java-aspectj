@@ -9,6 +9,11 @@ import org.junit.Test;
 import jxsource.aspectj.trace.ThreadTrace;
 import jxsource.aspectj.trace.ThreadTraceLocal;
 
+/**
+ * Test ThreadTraceLocal class
+ * @author JiangJxSrc
+ *
+ */
 public class ThreadTraceLocalTest {
 	
 	@Test

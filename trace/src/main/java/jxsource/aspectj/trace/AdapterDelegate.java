@@ -1,6 +1,7 @@
 package jxsource.aspectj.trace;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -16,16 +17,15 @@ import com.ctc.wstx.stax.*;
 
 @SuppressWarnings("restriction")
 public class AdapterDelegate {
+	public static final String ContentFormat = "jxsource.aspect-trace.output-format";
 	private static Logger log = LogManager.getLogger(AdapterDelegate.class);
 	private static Properties properties;
-	private static boolean xml = true;
+	private boolean xml = true;
 	static {
 		properties = new Properties();
 		try {
 			InputStream in = AdapterDelegate.class.getClassLoader().getResourceAsStream("adapter.properties");
 			properties.load(in);
-			String outputFormat = properties.getProperty("output-format");
-			xml = outputFormat.toLowerCase().equals("json") ? false : true;
 		} catch (NullPointerException e) {
 			String msg = "No adapter.properties file found in classpath.";
 			log.warn(msg);
@@ -40,12 +40,19 @@ public class AdapterDelegate {
 	XMLInputFactory inputFactory;
 
 	public AdapterDelegate() {
+		String outputFormat = System.getProperty(ContentFormat);
+		if(outputFormat != null) {
+			xml = outputFormat.toLowerCase().equals("json") ? false : true;
+		}
 		mapper = new ObjectMapper();
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.setSerializationInclusion(Include.NON_NULL);
 		// use specified InputFactory to guarantee XmlMapper works in both Spring
 		// framework and WAS
 		inputFactory = new WstxInputFactory();
 		xmlMapper = new XmlMapper(inputFactory);
+		xmlMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		xmlMapper.setSerializationInclusion(Include.NON_NULL);
 	}
 
 	public String toString(Object obj) {
