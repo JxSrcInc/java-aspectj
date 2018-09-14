@@ -76,7 +76,8 @@ public class AdapterDelegate {
 			s = xmlMapper.writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
 			s = obj.toString();
-			log.warn("Error when converting to XML: " + obj, e);
+			log.warn("-> Warning when converting to XML: " + obj +
+					", exception: "+e.getClass()+" - "+e.getMessage());
 		}
 		return s;
 	}
@@ -87,7 +88,8 @@ public class AdapterDelegate {
 			s = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(obj);
 		} catch (JsonProcessingException e) {
 			s = obj.toString();
-			log.warn("Error when converting to JSON: " + obj, e);
+			log.warn("-> Warning when converting to JSON: " + obj +
+					", exception: "+e.getClass()+" - "+e.getMessage());
 		}
 		return "<![CDATA[" + s + "]]>";
 	}

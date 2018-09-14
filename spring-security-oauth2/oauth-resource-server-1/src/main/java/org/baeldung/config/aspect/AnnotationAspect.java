@@ -21,8 +21,9 @@ public class AnnotationAspect {
 	private static Logger log = LogManager.getLogger(AnnotationAspect.class);
 	private ThreadTrace trace = ThreadTraceLocal.get();
 	private final String joinpoints = "execution(* org.springframework.security..*(..)) && "+
-			"!within(is(FinalType)) && " +
-			"!within(org.springframework.security.config.annotation..*)";
+			"!within(org.springframework.security.config.annotation..*) && " +
+//			"!within(org.springframework.security.access..*) && " +
+			"!within(is(FinalType))";
 	@Around(joinpoints)
 	public Object around(ProceedingJoinPoint jp) throws Throwable {
 		log.info(jp.getSignature());
